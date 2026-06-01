@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nueva Tarea - DataAuditLabs</title>
+</head>
+<body>
+
+    <h1>Crear Nueva Tarea</h1>
+
+    <?php if (isset($error)): ?>
+        <div style="color: red; margin-bottom: 15px; border: 1px solid red; padding: 10px;">
+            <strong>Atención:</strong> <?php echo $error; ?>
+        </div>
+    <?php endif; ?>
+
+    <form action="index.php?controller=tarea&action=store" method="POST">
+        
+        <p>
+            <label for="titulo">Título de la Tarea:</label><br>
+            <input type="text" id="titulo" name="titulo" required placeholder="Ej. Revisar base de datos">
+        </p>
+
+        <p>
+            <label for="id_proyecto">ID del Proyecto:</label><br>
+            <input type="number" id="id_proyecto" name="id_proyecto" required min="1">
+        </p>
+
+        <p>
+             <label for="descripcion">Descripcion de la tarea</label><br>
+            <input type="text" id="descripcion" name="descripcion" required placeholder="Ejemplo cualquier cosa">
+        </p>
+
+          <p>
+             <label for="fecha_limite">Fecha limite</label><br>
+            <input type="text" id="fecha_limite" name="fecha_limite" required placeholder="Ejemplo cualquier cosa">
+        </p>
+
+        <p>
+            <button type="submit">Guardar Tarea</button>
+            
+            <a href="index.php?controller=tarea&action=index">Cancelar y Volver</a>
+        </p>
+
+    </form>
+
+</body>
+</html>
