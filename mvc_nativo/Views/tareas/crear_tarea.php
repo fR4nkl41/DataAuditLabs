@@ -33,7 +33,7 @@
 
           <p>
              <label for="fecha_limite">Fecha limite</label><br>
-            <input type="text" id="fecha_limite" name="fecha_limite" required placeholder="Ejemplo cualquier cosa">
+            <input type="date" id="fecha_limite" name="fecha_limite" required ">
         </p>
 
         <p>
