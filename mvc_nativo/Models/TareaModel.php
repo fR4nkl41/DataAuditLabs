@@ -50,7 +50,7 @@ class Tarea {
         $stmt->bindParam(':id_tarea', $id_tarea);
         $stmt->execute();
         
-        // Retornamos el array asociativo con los datos de la tarea
+        
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -85,7 +85,7 @@ class Tarea {
         $stmt -> bindParam(':id_tarea', $id_tarea);
 
         try {
-            // Evaluamos si la ejecución fue exitosa
+          
             if ($stmt->execute()) {
                 return true; 
             }
@@ -95,7 +95,7 @@ class Tarea {
         }
     }
 
-    // 4. Lógica de Negocio (Ejemplo: Obtener tareas de un usuario específico)
+    //Funcion para a futuro cuando manejemos secciones de usuario
     public function obtenerTareasPorUsuario($id_usuario) {
         $query = "SELECT t.titulo, t.estado, p.nombre as proyecto 
                   FROM tareas t
@@ -106,7 +106,7 @@ class Tarea {
         $stmt->bindParam(':id_usuario', $id_usuario);
         $stmt->execute();
         
-        return $stmt; // El Controlador se encargará de procesar este resultado
+        return $stmt; 
     }
 }
 ?>
