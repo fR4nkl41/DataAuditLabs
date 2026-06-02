@@ -75,9 +75,10 @@ class TareaController {
             $titulo = $_POST['titulo'];
             $descripcion = $_POST['descripcion'];
             $fecha_limite = $_POST['fecha_limite'];
-         
+            $estado = $_POST['estado'];
+            $prioridad = $_POST['prioridad'];
             
-            if ($this->tareaModel->editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite)) {
+            if ($this->tareaModel->editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite,$estado,$prioridad)) {
                 
                 header('Location: index.php?controller=tarea&action=index&mensaje=actualizado');
                 exit();
@@ -94,14 +95,15 @@ class TareaController {
             $id_proyecto = trim($_POST['id_proyecto'] ?? '');
             $descripcion = trim($_POST['descripcion'] ?? '');
             $fecha_limite = trim($_POST['fecha_limite'] ?? '');
-            
+            $estado = $_POST['estado'] ?? 'Pendiente';
+            $prioridad = $_POST['prioridad'] ?? 'Media';
             if (!empty($titulo) && !empty($id_proyecto)) {
                 $this->tareaModel->setTitulo($titulo);
                 $this->tareaModel->setProyecto($id_proyecto);
                 $this->tareaModel->setDescripcion($descripcion);
                 $this->tareaModel->setFechaLimite($fecha_limite);
-                
-               
+                $this->tareaModel->setEstado($estado);
+                $this->tareaModel->setPrioridad($prioridad);
                 $this->tareaModel->setUsuarioAsignado($_SESSION['id_usuario']);
                 
                 if ($this->tareaModel->crear()) {

@@ -9,6 +9,7 @@ class Tarea {
     private $id_usuario_asignado;
     private $titulo;
     private $estado;
+    private $prioridad;
     private $descripcion;
     private $fecha_limite;
 
@@ -19,6 +20,8 @@ class Tarea {
 
     public function setIdTarea($id_tarea) {$this->id_tarea = $id_tarea;}
     public function setTitulo($titulo) { $this->titulo = $titulo; }
+    public function setPrioridad($prioridad){$this->prioridad = $prioridad;}
+    public function setEstado($estado){$this->estado = $estado;}
     public function setProyecto($id_proyecto) { $this->id_proyecto = $id_proyecto; }
     public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
     public function setFechaLimite($fecha_limite) { $this->fecha_limite = $fecha_limite; }
@@ -26,7 +29,7 @@ class Tarea {
 
     // 3. Métodos CRUD (Ejemplo: Crear una tarea)
     public function crear() {
-        $query = "INSERT INTO tareas (id_proyecto, id_usuario_asignado, titulo, descripcion, estado, prioridad, fecha_limite) VALUES (:id_proyecto, :id_usuario_asignado, :titulo, :descripcion, 'Pendiente', 'Media', :fecha_limite)";
+        $query = "INSERT INTO tareas (id_proyecto, id_usuario_asignado, titulo, descripcion, estado, prioridad, fecha_limite) VALUES (:id_proyecto, :id_usuario_asignado, :titulo, :descripcion, :estado, :prioridad, :fecha_limite)";
 
         $stmt = $this->conn->prepare($query);
         
@@ -35,6 +38,8 @@ class Tarea {
         $stmt->bindParam(':id_usuario_asignado', $this->id_usuario_asignado);
         $stmt->bindParam(':titulo', $this->titulo);
         $stmt->bindParam(':descripcion', $this->descripcion);
+        $stmt->bindParam(':estado', $this->estado);
+        $stmt->bindParam(':prioridad', $this->prioridad);
         $stmt->bindParam(':fecha_limite', $this->fecha_limite);
         
         if($stmt->execute()) {
@@ -57,13 +62,18 @@ class Tarea {
 
       public function editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite)
     {
-        $query = "UPDATE tareas set titulo = :titulo, descripcion = :descripcion, fecha_limite = :fecha_limite WHERE id_tarea = :id_tarea";
+        $query = "UPDATE tareas 
+                  SET titulo = :titulo, descripcion = :descripcion, fecha_limite = :fecha_limite, 
+                      estado = :estado, prioridad = :prioridad 
+                  WHERE id_tarea = :id_tarea";
         $stmt = $this -> conn->prepare($query);
 
         $stmt->bindParam(':id_tarea',$id_tarea);
         $stmt->bindParam(':titulo',$titulo);
         $stmt->bindParam(':descripcion',$descripcion);
         $stmt->bindParam(':fecha_limite',$fecha_limite);
+        $stmt->bindParam(':estado',$estado);
+        $stmt->bindParam(':prioridad',$prioridad);
 
         return $stmt->execute();
     }

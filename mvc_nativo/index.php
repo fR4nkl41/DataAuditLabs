@@ -5,13 +5,13 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-// 2. Definir el controlador por defecto de forma inteligente
+// 1. Definir el controlador por defecto de forma inteligente
 // Si el usuario ya está logueado, lo mandamos a 'tarea'. Si no, al login ('auth').
 $defaultController = isset($_SESSION['id_usuario']) ? 'tarea' : 'auth';
 $controllerName = isset($_GET['controller']) ? $_GET['controller'] : $defaultController;
 $actionName = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-// 4. Construir la ruta exacta del archivo (Respetando mayúsculas)
+// 3. Construir la ruta exacta del archivo (Respetando mayúsculas)
 $controllerClass = ucfirst($controllerName) . "Controller";
 $controllerFile = "Controllers/" . $controllerClass . ".php";
 

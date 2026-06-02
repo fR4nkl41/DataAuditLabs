@@ -39,6 +39,26 @@
              <label for="fecha_limite">Fecha limite</label><br>
             <input type="date" id="fecha_limite" name="fecha_limite" required ">
         </p>
+        <p>
+            <label for="estado">Estado de la Tarea:</label><br>
+            <select id="estado" name="estado" required>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En Progreso">En Progreso</option>
+                <option value="Revisión">Revisión</option>
+                <option value="Testing">Testing</option>
+                <option value="Completada">Completada</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="prioridad">Prioridad:</label><br>
+            <select id="prioridad" name="prioridad" required>
+                <option value="Baja">Baja</option>
+                <option value="Media" selected>Media</option>
+                <option value="Alta">Alta</option>
+                <option value="Urgente">Urgente</option>
+            </select>
+        </p>
 
         <p>
             <button type="submit">Guardar Tarea</button>
