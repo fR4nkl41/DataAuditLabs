@@ -103,6 +103,27 @@ class ProyectoController {
         }
     }
 
+     public function actualizarEstadoAjax() {
+        header('Content-Type: application/json');
+
+        // Verificamos que venga por POST y traiga los datos necesarios
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['estado'])) {
+            
+            $id_proyecto = $_POST['id'];
+            $estado = $_POST['estado'];
+
+            if ($this->proyectoModel->actualizarEstado($id_proyecto, $estado)) {
+                echo json_encode(['success' => true, 'mensaje' => 'Estado actualizado en la base de datos.']);
+            } else {
+                echo json_encode(['success' => false, 'mensaje' => 'Error al actualizar en la base de datos.']);
+            }
+            
+        } else {
+            echo json_encode(['success' => false, 'mensaje' => 'Datos incompletos.']);
+        }
+        exit();
+    }
+
   public function actualizar()
     {
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {

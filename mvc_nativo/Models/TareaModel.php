@@ -60,24 +60,25 @@ class Tarea {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-      public function editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite)
+    public function editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite, $estado, $prioridad)
     {
         $query = "UPDATE tareas 
                   SET titulo = :titulo, descripcion = :descripcion, fecha_limite = :fecha_limite, 
                       estado = :estado, prioridad = :prioridad 
                   WHERE id_tarea = :id_tarea";
-        $stmt = $this -> conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':id_tarea',$id_tarea);
-        $stmt->bindParam(':titulo',$titulo);
-        $stmt->bindParam(':descripcion',$descripcion);
-        $stmt->bindParam(':fecha_limite',$fecha_limite);
-        $stmt->bindParam(':estado',$estado);
-        $stmt->bindParam(':prioridad',$prioridad);
+        $stmt->bindParam(':id_tarea', $id_tarea);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':fecha_limite', $fecha_limite);
+        
+        // Ahora sí existen estas variables
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':prioridad', $prioridad);
 
         return $stmt->execute();
     }
-    
 
     public function leerTodos()
     {
@@ -104,6 +105,24 @@ class Tarea {
         } catch (PDOException $e) {
             return false; 
         }
+    }
+    public function actualizarEstado($id_tarea, $estado) {
+        $query = "UPDATE tareas SET estado = :estado WHERE id_tarea = :id_tarea";
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':id_tarea', $id_tarea);
+        
+        return $stmt->execute();
+    }
+    public function actualizarPrioridad($id_tarea, $prioridad) {
+        $query = "UPDATE tareas SET prioridad = :prioridad WHERE id_tarea = :id_tarea";
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(':prioridad', $prioridad);
+        $stmt->bindParam(':id_tarea', $id_tarea);
+        
+        return $stmt->execute();
     }
 
     //Funcion para a futuro cuando manejemos secciones de usuario

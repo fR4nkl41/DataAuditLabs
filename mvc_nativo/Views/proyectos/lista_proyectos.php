@@ -47,7 +47,14 @@
                         <td><?php echo $proyecto['id_proyecto']; ?></td>
                         <td><strong><?php echo htmlspecialchars($proyecto['nombre']); ?></strong></td>
                         <td><?php echo htmlspecialchars($proyecto['descripcion'] ?? 'Sin descripción'); ?></td>
-                        <td><?php echo htmlspecialchars($proyecto['estado']); ?></td>
+                        <td>
+                            <select onchange="cambiarEstadoAjax(<?php echo $proyecto['id_proyecto']; ?>, this.value)">
+                                <option value="Planificacion" <?php echo ($proyecto['estado'] == 'Planificacion') ? 'selected' : ''; ?>>Planificación</option>
+                                <option value="En Desarrollo" <?php echo ($proyecto['estado'] == 'En Desarrollo') ? 'selected' : ''; ?>>En Desarrollo</option>
+                                <option value="Pruebas" <?php echo ($proyecto['estado'] == 'Pruebas') ? 'selected' : ''; ?>>Pruebas</option>
+                                <option value="Completado" <?php echo ($proyecto['estado'] == 'Completado') ? 'selected' : ''; ?>>Completado</option>
+                            </select>
+                        </td>
                         <td><?php echo $proyecto['fecha_inicio'] ? $proyecto['fecha_inicio'] : 'N/A'; ?></td>
                         <td><?php echo $proyecto['fecha_fin_estimada'] ? $proyecto['fecha_fin_estimada'] : 'N/A'; ?></td>
                         <td>
@@ -66,6 +73,37 @@
             <?php endif; ?>
         </tbody>
     </table>
+<script>
+    function cambiarEstadoAjax(id_proyecto, nuevoEstado) {
+    
+    // Empaquetamos los datos como si fuera un formulario HTML invisible
+    let formData = new FormData();
+    formData.append('id', id_proyecto);
+    formData.append('estado', nuevoEstado);
 
+    // Hacemos la petición POST al controlador
+    fetch('index.php?controller=proyecto&action=actualizarEstadoAjax', {
+        method: 'POST',
+        body: formData
+    })
+    .then(respuesta => respuesta.json()) // Esperamos la respuesta en JSON
+    .then(datos => {
+        if (datos.success) {
+            // Éxito: Podemos imprimir en consola o no hacer nada (modo silencioso)
+            console.log("Cambio guardado: " + nuevoEstado);
+            
+            // Opcional: Mostrar un aviso visual temporal si lo deseas
+            // alert('Estado guardado correctamente'); 
+        } else {
+            // El servidor reportó un error
+            alert('Error: ' + datos.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error('Hubo un problema de conexión:', error);
+        alert('Ocurrió un error al intentar comunicar con el servidor.');
+    });
+}
+</script>
 </body>
 </html>

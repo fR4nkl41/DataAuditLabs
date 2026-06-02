@@ -41,6 +41,16 @@ class Proyecto {
         }
         return false;
     }
+    //Actualizar estado del proyecto con ajax
+    public function actualizarEstado($id_proyecto, $estado) {
+        $query = "UPDATE proyectos SET estado = :estado WHERE id_proyecto = :id_proyecto";
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':id_proyecto', $id_proyecto);
+        
+        return $stmt->execute();
+    }
 
     // Método para listar todos los proyectos (Útil para llenar el combobox en las tareas)
     public function leerTodos() {

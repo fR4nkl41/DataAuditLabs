@@ -128,6 +128,72 @@ class TareaController {
             }
         }
     }
+    public function actualizarEstadoAjax() {
+        header('Content-Type: application/json');
+
+        // Verificamos que venga por POST y traiga los datos necesarios
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['estado'])) {
+            
+            $id_tarea = $_POST['id'];
+            $estado = $_POST['estado'];
+
+            if ($this->tareaModel->actualizarEstado($id_tarea, $estado)) {
+                echo json_encode(['success' => true, 'mensaje' => 'Estado actualizado en la base de datos.']);
+            } else {
+                echo json_encode(['success' => false, 'mensaje' => 'Error al actualizar en la base de datos.']);
+            }
+            
+        } else {
+            echo json_encode(['success' => false, 'mensaje' => 'Datos incompletos.']);
+        }
+        exit();
+    }
+
+    public function actualizarPrioridadAjax() {
+        header('Content-Type: application/json');
+
+        // Verificamos que venga por POST y traiga los datos necesarios
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['prioridad'])) {
+            
+            $id_tarea = $_POST['id'];
+            $prioridad = $_POST['prioridad'];
+
+            if ($this->tareaModel->actualizarPrioridad($id_tarea, $prioridad)) {
+                echo json_encode(['success' => true, 'mensaje' => 'Prioridad actualizado en la base de datos.']);
+            } else {
+                echo json_encode(['success' => false, 'mensaje' => 'Error al actualizar en la base de datos.']);
+            }
+            
+        } else {
+            echo json_encode(['success' => false, 'mensaje' => 'Datos incompletos.']);
+        }
+        exit();
+    }
+
+    // Nueva acción para eliminar mediante AJAX
+    public function eliminarAjax() {
+       
+        header('Content-Type: application/json');
+
+        if (isset($_GET['id'])) {
+            $id_tarea = $_GET['id'];
+            
+ 
+            if ($this->tareaModel->eliminar($id_tarea)) {
+                // Éxito: Devolvemos un JSON con success = true
+                echo json_encode(['success' => true, 'mensaje' => 'Tarea eliminada correctamente.']);
+            } else {
+                // Error en la BD
+                echo json_encode(['success' => false, 'mensaje' => 'No se pudo eliminar la tarea.']);
+            }
+        } else {
+            // Faltó el ID
+            echo json_encode(['success' => false, 'mensaje' => 'ID no proporcionado.']);
+        }
+        
+        // Es vital usar exit() para que no se imprima nada más de código HTML
+        exit();
+    }
 
     // 4. Acción para eliminar una tarea
     public function delete() {
