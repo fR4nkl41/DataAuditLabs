@@ -25,11 +25,6 @@ class Database {
         } catch(PDOException $exception) {
             echo "Error de conexión: " . $exception->getMessage();
         }
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> mergeprueba
         return $this->conn;
     }
 }
