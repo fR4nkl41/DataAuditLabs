@@ -51,7 +51,7 @@
                                 <option value="Planificacion" <?php echo ($proyecto['estado'] == 'Planificacion') ? 'selected' : ''; ?>>Planificación</option>
                                 <option value="En Desarrollo" <?php echo ($proyecto['estado'] == 'En Desarrollo') ? 'selected' : ''; ?>>En Desarrollo</option>
                                 <option value="Pruebas" <?php echo ($proyecto['estado'] == 'Pruebas') ? 'selected' : ''; ?>>Pruebas</option>
-                                <option value="Completado" <?php echo ($proyecto['estado'] == 'Completado') ? 'selected' : ''; ?>>Completado</option>
+                                <option value="Completada" <?php echo ($proyecto['estado'] == 'Completada') ? 'selected' : ''; ?>>Completada</option>
                             </select>
                         </td>
                         <td><?php echo $proyecto['fecha_inicio'] ? $proyecto['fecha_inicio'] : 'N/A'; ?></td>

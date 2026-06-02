@@ -4,25 +4,14 @@
 // Requerir dependencias
 require_once 'config/config.php';
 require_once 'Models/TareaModel.php';
-<<<<<<< HEAD
-=======
 require_once 'Models/ProyectoModel.php';
 
 
->>>>>>> mergeprueba
 
 class TareaController {
     
     private $db;
     private $tareaModel;
-<<<<<<< HEAD
-
-    // 1. El Constructor inicializa la base de datos y el modelo
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-        $this->tareaModel = new Tarea($this->db);
-=======
     private $proyectoModel;
 
     // 1. El Constructor inicializa la base de datos y el modelo
@@ -39,18 +28,10 @@ class TareaController {
         $this->db = $database->getConnection();
         $this->tareaModel = new Tarea($this->db);
         $this->proyectoModel = new Proyecto($this->db);
->>>>>>> mergeprueba
     }
 
     // 2. Acción para listar las tareas (Página principal del módulo)
     public function index() {
-<<<<<<< HEAD
-
-        $stmt = $this->tareaModel->leerTodos();
-        $tareas = $stmt->fetchAll();
-
-        require_once 'Views/tareas/lista_tareas.php';
-=======
     $nombreUsuario = $_SESSION['nombre'];
     $id_usuario = $_SESSION['id_usuario'];
     $stmt = $this->tareaModel->obtenerTareasPorUsuario($id_usuario);
@@ -60,17 +41,13 @@ class TareaController {
     $proyectos = $stmtProyectos->fetchAll();
         
     require_once 'Views/tareas/lista_tareas.php';
->>>>>>> mergeprueba
     }
 
     public function create() {
         // Simplemente carga la vista del formulario
-<<<<<<< HEAD
-=======
         $proyectoModel = new Proyecto($this->db);
         $stmt = $proyectoModel->leerTodos();
         $proyectos = $stmt->fetchAll();
->>>>>>> mergeprueba
         require_once 'Views/tareas/crear_tarea.php';
     }
 
@@ -84,12 +61,9 @@ class TareaController {
             
             // Usamos la nueva función del modelo
             $tareaActual = $this->tareaModel->obtenerPorId($id_tarea);
-<<<<<<< HEAD
-=======
             $proyectoModel = new Proyecto($this->db);
             $stmt = $proyectoModel->leerTodos();
             $proyectos = $stmt->fetchAll();
->>>>>>> mergeprueba
             
             // Si la consulta devolvió datos, cargamos la vista
             if ($tareaActual) {
@@ -114,18 +88,11 @@ class TareaController {
             $titulo = $_POST['titulo'];
             $descripcion = $_POST['descripcion'];
             $fecha_limite = $_POST['fecha_limite'];
-<<<<<<< HEAD
-         
-            // CORRECCIÓN: Ejecutar el modelo DENTRO del POST
-            if ($this->tareaModel->editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite)) {
-                // CORRECCIÓN: Redirigir a la lista de tareas con un mensaje de éxito
-=======
             $estado = $_POST['estado'];
             $prioridad = $_POST['prioridad'];
             
             if ($this->tareaModel->editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite,$estado,$prioridad)) {
                 
->>>>>>> mergeprueba
                 header('Location: index.php?controller=tarea&action=index&mensaje=actualizado');
                 exit();
             } else {
@@ -137,35 +104,20 @@ class TareaController {
    // Procesamiento de formulario
    public function store() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-<<<<<<< HEAD
-            
-            // Recibir todos los datos
-=======
->>>>>>> mergeprueba
             $titulo = trim($_POST['titulo'] ?? '');
             $id_proyecto = trim($_POST['id_proyecto'] ?? '');
             $descripcion = trim($_POST['descripcion'] ?? '');
             $fecha_limite = trim($_POST['fecha_limite'] ?? '');
-<<<<<<< HEAD
-            
-            if (!empty($titulo) && !empty($id_proyecto)) {
-                
-                // Cargar TODOS los datos en el modelo
-=======
             $estado = $_POST['estado'] ?? 'Pendiente';
             $prioridad = $_POST['prioridad'] ?? 'Media';
             if (!empty($titulo) && !empty($id_proyecto)) {
->>>>>>> mergeprueba
                 $this->tareaModel->setTitulo($titulo);
                 $this->tareaModel->setProyecto($id_proyecto);
                 $this->tareaModel->setDescripcion($descripcion);
                 $this->tareaModel->setFechaLimite($fecha_limite);
-<<<<<<< HEAD
-=======
                 $this->tareaModel->setEstado($estado);
                 $this->tareaModel->setPrioridad($prioridad);
                 $this->tareaModel->setUsuarioAsignado($_SESSION['id_usuario']);
->>>>>>> mergeprueba
                 
                 if ($this->tareaModel->crear()) {
                     header("Location: index.php?controller=tarea&action=index&mensaje=creado");
@@ -180,8 +132,6 @@ class TareaController {
             }
         }
     }
-<<<<<<< HEAD
-=======
     public function actualizarEstadoAjax() {
         header('Content-Type: application/json');
 
@@ -267,7 +217,6 @@ class TareaController {
         // Es vital usar exit() para que no se imprima nada más de código HTML
         exit();
     }
->>>>>>> mergeprueba
 
     // 4. Acción para eliminar una tarea
     public function delete() {

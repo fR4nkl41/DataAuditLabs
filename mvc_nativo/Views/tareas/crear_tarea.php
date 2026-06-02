@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Nueva Tarea - DataAuditLabs</title>
-<<<<<<< HEAD
-</head>
-<body>
-
-=======
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/styles.css?v=<?php echo time(); ?>">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -18,7 +13,6 @@
     | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
     | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
 </header>
->>>>>>> mergeprueba
     <h1>Crear Nueva Tarea</h1>
 
     <?php if (isset($error)): ?>
@@ -34,11 +28,6 @@
             <input type="text" id="titulo" name="titulo" required placeholder="Ej. Revisar base de datos">
         </p>
 
-<<<<<<< HEAD
-        <p>
-            <label for="id_proyecto">ID del Proyecto:</label><br>
-            <input type="number" id="id_proyecto" name="id_proyecto" required min="1">
-=======
        <p>
             <label for="id_proyecto">Asignar al Proyecto: *</label><br>
             <select id="id_proyecto" name="id_proyecto" required>
@@ -55,7 +44,6 @@
                 <?php endif; ?>
                 
             </select>
->>>>>>> mergeprueba
         </p>
 
         <p>
@@ -65,9 +53,6 @@
 
           <p>
              <label for="fecha_limite">Fecha limite</label><br>
-<<<<<<< HEAD
-            <input type="text" id="fecha_limite" name="fecha_limite" required placeholder="Ejemplo cualquier cosa">
-=======
             <input type="date" id="fecha_limite" name="fecha_limite" required ">
         </p>
         <p>
@@ -89,7 +74,6 @@
                 <option value="Alta">Alta</option>
                 <option value="Urgente">Urgente</option>
             </select>
->>>>>>> mergeprueba
         </p>
 
         <p>

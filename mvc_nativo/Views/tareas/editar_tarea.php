@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea - DataAuditLabs</title>
-<<<<<<< HEAD
-</head>
-<body>
-
-=======
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/styles.css?v=<?php echo time(); ?>">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -18,7 +13,6 @@
     | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
     | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
 </header>
->>>>>>> mergeprueba
     <h1>Editar Tarea #<?php echo $tareaActual['id_tarea']; ?></h1>
 
     <form action="index.php?controller=tarea&action=actualizar" method="POST">
@@ -30,8 +24,6 @@
             <input type="text" id="titulo" name="titulo" required 
                    value="<?php echo htmlspecialchars($tareaActual['titulo']); ?>">
         </p>
-<<<<<<< HEAD
-=======
         <p>
             <label for="id_proyecto">Proyecto:</label><br>
             <select id="id_proyecto" name="id_proyecto" required>
@@ -43,7 +35,6 @@
                 <?php endforeach; ?>
             </select>
         </p>
->>>>>>> mergeprueba
 
         <p>
             <label for="descripcion">Descripción de la tarea:</label><br>
@@ -56,8 +47,6 @@
             <input type="date" id="fecha_limite" name="fecha_limite" required 
                    value="<?php echo $tareaActual['fecha_limite']; ?>">
         </p>
-<<<<<<< HEAD
-=======
         <p>
             <label for="estado">Estado de la Tarea:</label><br>
             <select id="estado" name="estado" required>
@@ -78,7 +67,6 @@
                 <option value="Urgente" <?php echo ($tareaActual['prioridad'] == 'Urgente') ? 'selected' : ''; ?>>Urgente</option>
             </select>
         </p>
->>>>>>> mergeprueba
 
         <p>
             <button type="submit">Actualizar Tarea</button>

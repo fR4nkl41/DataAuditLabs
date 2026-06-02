@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Tareas - DataAuditLabs</title>
-<<<<<<< HEAD
-</head>
-<body>
-
-=======
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/styles.css?v=<?php echo time(); ?>">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -19,7 +14,6 @@
     | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
 </header>
  
->>>>>>> mergeprueba
     <h1>Gestión de Tareas</h1>
 
     <!-- 1. Mostrar mensajes de retroalimentación (Vienen de la redirección del Controlador) -->
@@ -37,10 +31,7 @@
     <!-- Nota cómo la URL apunta al index, especificando el controlador y la acción -->
     <p>
         <a href="index.php?controller=tarea&action=create">Crear Nueva Tarea</a>
-<<<<<<< HEAD
-=======
         <a href="index.php?controller=proyecto&action=index">Ver Proyectos</a>
->>>>>>> mergeprueba
     </p>
 
     <!-- 3. Estructura de la Tabla de Datos -->
@@ -52,11 +43,8 @@
                 <th>ID Proyecto</th>
                 <th>Estado</th>
                 <th>prioridad</th>
-<<<<<<< HEAD
-=======
                 <th>Fecha creacion</th>
                 <th>Fecha Limite</th>
->>>>>>> mergeprueba
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -67,11 +55,6 @@
                     <tr>
                         <td><?php echo $tarea['id_tarea']; ?></td>
                         <td><?php echo htmlspecialchars($tarea['titulo']); ?></td>
-<<<<<<< HEAD
-                        <td><?php echo $tarea['id_proyecto']; ?></td>
-                        <td><?php echo $tarea['estado']; ?></td>
-                        <td><?php echo $tarea['prioridad']; ?></td>
-=======
                         <td>
                             <select onchange="cambiarProyectoAjax(<?php echo $tarea['id_tarea']; ?>, this.value)">
                                 <?php if (!empty($proyectos)): ?>
@@ -106,21 +89,14 @@
                     </td>
                     <td><?php echo $tarea['fecha_creacion']; ?></td>
                     <td><?php echo $tarea['fecha_limite']; ?></td>
->>>>>>> mergeprueba
                         
                         <!-- 5. Enlaces de Acción (Pasando el ID por GET) -->
                         <td>
                             <!-- Enlace para ver/editar (Asume que crearás un método 'edit' en el controlador) -->
                             <a href="index.php?controller=tarea&action=edit&id=<?php echo $tarea['id_tarea']; ?>">Editar</a> 
-<<<<<<< HEAD
-                            | 
-                            <!-- Enlace para eliminar (Apunta al método 'delete' que ya hicimos) -->
-                            <a href="index.php?controller=tarea&action=delete&id=<?php echo $tarea['id_tarea']; ?>" onclick="return confirm('¿Estás seguro de eliminar esta tarea?');">Eliminar</a>
-=======
                             | <button type="button" onclick="eliminarConAjax(<?php echo $tarea['id_tarea']; ?>, this)">Eliminar (AJAX)</button>
                          
                           
->>>>>>> mergeprueba
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -132,9 +108,6 @@
             <?php endif; ?>
         </tbody>
     </table>
-<<<<<<< HEAD
-
-=======
 <script>
     function cambiarEstadoAjax(id_tarea, nuevoEstado) {
     
@@ -196,6 +169,30 @@ function cambiarPrioridadAjax(id_tarea, nuevaPrioridad) {
         alert('Ocurrió un error al intentar comunicar con el servidor.');
     });
 }
+function cambiarProyectoAjax(id_tarea, nuevoIdProyecto) {
+    let formData = new FormData();
+    formData.append('id', id_tarea);
+    formData.append('id_proyecto', nuevoIdProyecto);
+
+    // Ajusta la URL según cómo manejes tus controladores en PHP nativo
+    fetch('index.php?controller=tarea&action=actualizarProyectoAjax', {
+        method: 'POST',
+        body: formData
+    })
+    .then(respuesta => respuesta.json())
+    .then(datos => {
+        if (datos.success) {
+            console.log("Proyecto actualizado correctamente");
+        } else {
+            alert('Error: ' + datos.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error de conexión.');
+    });
+}
+
 
 function eliminarConAjax(id_tarea, botonClicado) {
     // 1. Confirmación clásica
@@ -226,6 +223,5 @@ function eliminarConAjax(id_tarea, botonClicado) {
     }
 }
 </script>
->>>>>>> mergeprueba
 </body>
 </html>
