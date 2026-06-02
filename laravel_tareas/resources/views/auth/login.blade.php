@@ -1,32 +1,50 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - DataAuditLabs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+</head>
+<body>
 
-@section('content')
-<div class="row justify-content-center mt-5">
-    <div class="col-md-5">
-        <div class="card p-4">
-            <h4 class="text-center mb-4">Iniciar Sesión</h4>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label">Correo electrónico</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
-                    @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Entrar</button>
-                </div>
-                <p class="text-center mt-3">¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
-            </form>
+    <h1>Iniciar Sesión</h1>
+
+    @if ($errors->any())
+        <div style="color: red; margin-bottom: 15px; border: 1px solid red; padding: 10px; background-color: white; border-radius: 8px;">
+            <strong>Error:</strong> {{ $errors->first() }}
         </div>
-    </div>
-</div>
-@endsection
+    @endif
+
+    @if (session('mensaje'))
+        <div style="color: green; margin-bottom: 15px; border: 1px solid green; padding: 10px; background-color: white; border-radius: 8px;">
+            {{ session('mensaje') }}
+        </div>
+    @endif
+
+    <form action="/login" method="POST">
+        @csrf
+        
+        <p>
+            <label for="email">Correo Electrónico:</label><br>
+            <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="admin@dataauditlabs.com">
+        </p>
+
+        <p>
+            <label for="password">Contraseña:</label><br>
+            <input type="password" id="password" name="password" required>
+        </p>
+
+        <p style="margin-top: 25px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+            <br><br>
+            <a href="/registro" style="display: block; text-align: center; font-size: 0.9rem;">Crear Usuario</a>
+        </p>
+
+    </form>
+
+</body>
+</html>

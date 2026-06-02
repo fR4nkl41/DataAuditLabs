@@ -10,40 +10,34 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // 1. Le decimos el nombre real de tu tabla
+    protected $table = 'usuarios';
+
+    // 2. Le indicamos cuál es tu llave primaria
+    protected $primaryKey = 'id_usuario';
+
+    // 3. Opcional: Si tu tabla no tiene created_at y updated_at
+    public $timestamps = false;
+
+    // 4. Las columnas que se pueden llenar
     protected $fillable = [
-        'name',
+        'nombre',
         'email',
-        'password',
+        'password_hash',
+        'rol',
     ];
+   
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    // 5. Ocultamos el password por seguridad cuando se imprima el usuario
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password_hash',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+     //Obtener password hash de la base de datos para laravel
+    public function getAuthPassword()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->password_hash;
     }
+    
 }
