@@ -36,6 +36,10 @@ class TareaController {
     $id_usuario = $_SESSION['id_usuario'];
     $stmt = $this->tareaModel->obtenerTareasPorUsuario($id_usuario);
     $tareas = $stmt->fetchAll();
+
+    $stmtProyectos = $this->proyectoModel->leerTodos();
+    $proyectos = $stmtProyectos->fetchAll();
+        
     require_once 'Views/tareas/lista_tareas.php';
     }
 
@@ -160,6 +164,25 @@ class TareaController {
 
             if ($this->tareaModel->actualizarPrioridad($id_tarea, $prioridad)) {
                 echo json_encode(['success' => true, 'mensaje' => 'Prioridad actualizado en la base de datos.']);
+            } else {
+                echo json_encode(['success' => false, 'mensaje' => 'Error al actualizar en la base de datos.']);
+            }
+            
+        } else {
+            echo json_encode(['success' => false, 'mensaje' => 'Datos incompletos.']);
+        }
+        exit();
+    }
+    public function actualizarProyectoAjax() {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['id_proyecto'])) {
+            
+            $id_tarea = $_POST['id'];
+            $id_proyecto = $_POST['id_proyecto'];
+
+            if ($this->tareaModel->actualizarProyecto($id_tarea, $id_proyecto)) {
+                echo json_encode(['success' => true, 'mensaje' => 'Proyecto reasignado correctamente.']);
             } else {
                 echo json_encode(['success' => false, 'mensaje' => 'Error al actualizar en la base de datos.']);
             }

@@ -124,7 +124,15 @@ class Tarea {
         
         return $stmt->execute();
     }
-
+    public function actualizarProyecto($id_tarea, $id_proyecto) {
+        $query = "UPDATE tareas SET id_proyecto = :id_proyecto WHERE id_tarea = :id_tarea";
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(':id_proyecto', $id_proyecto);
+        $stmt->bindParam(':id_tarea', $id_tarea);
+        
+        return $stmt->execute();
+    }
     //Funcion para a futuro cuando manejemos secciones de usuario
     public function obtenerTareasPorUsuario($id_usuario) {
         $query = "SELECT t.*, p.nombre as proyecto 

@@ -124,6 +124,30 @@ class ProyectoController {
         exit();
     }
 
+    public function eliminarAjax() {
+       
+        header('Content-Type: application/json');
+
+        if (isset($_GET['id'])) {
+            $id_proyecto = $_GET['id'];
+            
+ 
+            if ($this->proyectoModel->eliminar($id_proyecto)) {
+                // Éxito: Devolvemos un JSON con success = true
+                echo json_encode(['success' => true, 'mensaje' => 'El proyecto eliminada correctamente.']);
+            } else {
+                // Error en la BD
+                echo json_encode(['success' => false, 'mensaje' => 'No se pudo eliminar la tarea.']);
+            }
+        } else {
+            // Faltó el ID
+            echo json_encode(['success' => false, 'mensaje' => 'ID no proporcionado.']);
+        }
+        
+        // Es vital usar exit() para que no se imprima nada más de código HTML
+        exit();
+    }
+
   public function actualizar()
     {
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {

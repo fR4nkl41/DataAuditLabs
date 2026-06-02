@@ -61,8 +61,7 @@
                             <a href="index.php?controller=proyecto&action=edit&id=<?php echo $proyecto['id_proyecto']; ?>">
                                 Editar
                             </a>
-                              <a href="index.php?controller=proyecto&action=delete&id=<?php echo $proyecto['id_proyecto']; ?>" onclick="return confirm('¿Estás seguro de eliminar este Proyecto?');">Eliminar</a>
-                        </td>
+                            <button type="button" onclick="eliminarConAjax(<?php echo $proyecto['id_proyecto']; ?>, this)">Eliminar (AJAX)</button>
                         
                     </tr>
                 <?php endforeach; ?>
@@ -103,6 +102,35 @@
         console.error('Hubo un problema de conexión:', error);
         alert('Ocurrió un error al intentar comunicar con el servidor.');
     });
+}
+
+function eliminarConAjax(id_proyecto, botonClicado) {
+    // 1. Confirmación clásica
+    if (confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
+        
+        // 2. Hacemos la petición a la nueva URL de tu controlador
+        fetch('index.php?controller=proyecto&action=eliminarAjax&id=' + id_proyecto)
+            .then(respuesta => respuesta.json()) // Convertimos la respuesta de PHP a un objeto JS
+            .then(datos => {
+                
+                if (datos.success) {
+                    // 3. Si PHP dice que se borró, eliminamos la fila (<tr>) de la tabla HTML
+                    let fila = botonClicado.closest('tr');
+                    fila.remove();
+                    
+                    // Opcional: Mostrar un pequeño mensaje flotante o alert
+                    // alert(datos.mensaje);
+                } else {
+                    // Si hubo un error en el servidor, lo mostramos
+                    alert('Error: ' + datos.mensaje);
+                }
+                
+            })
+            .catch(error => {
+                console.error('Hubo un problema con la petición Fetch:', error);
+                alert('Ocurrió un error al intentar comunicar con el servidor.');
+            });
+    }
 }
 </script>
 </body>

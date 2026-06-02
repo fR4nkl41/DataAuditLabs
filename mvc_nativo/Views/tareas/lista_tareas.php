@@ -40,6 +40,8 @@
                 <th>ID Proyecto</th>
                 <th>Estado</th>
                 <th>prioridad</th>
+                <th>Fecha creacion</th>
+                <th>Fecha Limite</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -50,7 +52,20 @@
                     <tr>
                         <td><?php echo $tarea['id_tarea']; ?></td>
                         <td><?php echo htmlspecialchars($tarea['titulo']); ?></td>
-                        <td><?php echo $tarea['id_proyecto']; ?></td>
+                        <td>
+                            <select onchange="cambiarProyectoAjax(<?php echo $tarea['id_tarea']; ?>, this.value)">
+                                <?php if (!empty($proyectos)): ?>
+                                    <?php foreach ($proyectos as $p): ?>
+                                        <option value="<?php echo $p['id_proyecto']; ?>" 
+                                            <?php echo ($tarea['id_proyecto'] == $p['id_proyecto']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($p['nombre']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="">Sin proyectos</option>
+                                <?php endif; ?>
+                            </select>
+                        </td>
                         <td>
                             <select onchange="cambiarEstadoAjax(<?php echo $tarea['id_tarea']; ?>, this.value)">
                                 <option value="Pendiente" <?php echo ($tarea['estado'] == 'Pendiente') ? 'selected' : ''; ?>>Pendiente</option>
@@ -67,7 +82,10 @@
                 <option value="Alta" <?php echo ($tarea['prioridad'] == 'Alta') ? 'selected' : ''; ?>>Alta</option>
                 <option value="Urgente" <?php echo ($tarea['prioridad'] == 'Urgente') ? 'selected' : ''; ?>>Urgente</option>
                     </select>
+
                     </td>
+                    <td><?php echo $tarea['fecha_creacion']; ?></td>
+                    <td><?php echo $tarea['fecha_limite']; ?></td>
                         
                         <!-- 5. Enlaces de Acción (Pasando el ID por GET) -->
                         <td>
