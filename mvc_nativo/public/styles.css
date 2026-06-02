@@ -1,17 +1,4 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-/* 1. Configuración exclusiva de Tailwind */
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-/* 2. Variables Globales */
+/* Variables */
 :root {
     --primary: #1a237e;
     --primary-light: #3949ab;
@@ -27,7 +14,7 @@
     --shadow: 0 2px 12px rgba(0,0,0,0.10);
 }
 
-/* 3. Tu CSS corre de forma nativa abajo (aplastando el reset de Tailwind) */
+/* Reset y base */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -67,11 +54,11 @@ body > p  { max-width: 1300px; margin: 10px auto; }
 body > div:not([style*="color"]) { max-width: 1300px; margin: 10px auto; }
 
 h1 {
-    font-size: 1.7rem !important;
-    font-weight: 700 !important;
-    color: var(--primary) !important;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--primary);
     padding-bottom: 10px;
-    border-bottom: 3px solid var(--accent) !important;
+    border-bottom: 3px solid var(--accent);
 }
 
 /* Links generales */
@@ -82,8 +69,8 @@ a {
 }
 a:hover { color: var(--accent); }
 
-/* Boton crear de Laravel */
-a[href$="/crear"] {
+/* Boton crear */
+a[href*="action=create"] {
     display: inline-block;
     padding: 8px 20px;
     background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -95,10 +82,10 @@ a[href$="/crear"] {
     transition: opacity 0.2s, transform 0.1s;
     box-shadow: var(--shadow);
 }
-a[href$="/crear"]:hover { opacity: 0.88; transform: translateY(-1px); }
+a[href*="action=create"]:hover { opacity: 0.88; transform: translateY(-1px); }
 
-/* Boton navegacion index de Laravel */
-a[href="/tareas"], a[href="/proyectos"] {
+/* Boton navegacion index */
+a[href*="action=index"] {
     display: inline-block;
     padding: 7px 16px;
     background: #e8eaf6;
@@ -110,10 +97,10 @@ a[href="/tareas"], a[href="/proyectos"] {
     text-decoration: none !important;
     transition: background 0.2s;
 }
-a[href="/tareas"]:hover, a[href="/proyectos"]:hover { background: #c5cae9; }
+a[href*="action=index"]:hover { background: #c5cae9; }
 
-/* Boton editar de Laravel */
-a[href*="/editar/"] {
+/* Boton editar */
+a[href*="action=edit"] {
     display: inline-block;
     padding: 5px 14px;
     background-color: var(--warning);
@@ -124,7 +111,7 @@ a[href*="/editar/"] {
     text-decoration: none !important;
     transition: background 0.2s;
 }
-a[href*="/editar/"]:hover { background-color: #e65100; }
+a[href*="action=edit"]:hover { background-color: #e65100; }
 
 /* Tablas */
 table {
@@ -291,8 +278,8 @@ button[type="button"] {
 }
 button[type="button"]:hover { background: #b71c1c; transform: translateY(-1px); }
 
-/* Login y registro de Laravel */
-body:has(form[action="/login"]), body:has(form[action="/registro"]) {
+/* Login y registro */
+body:has(form[action*="controller=auth"]) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -300,24 +287,24 @@ body:has(form[action="/login"]), body:has(form[action="/registro"]) {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
 }
 
-body:has(form[action="/login"]) h1, body:has(form[action="/registro"]) h1 {
-    color: #fff !important;
-    border-bottom-color: rgba(255,255,255,0.5) !important;
+body:has(form[action*="controller=auth"]) h1 {
+    color: #fff;
+    border-bottom-color: rgba(255,255,255,0.5);
     text-align: center;
     max-width: 560px;
 }
 
-body:has(form[action="/login"]) form, body:has(form[action="/registro"]) form {
+body:has(form[action*="controller=auth"]) form {
     min-width: 380px;
     box-shadow: 0 8px 32px rgba(26,35,126,0.22);
 }
 
-body:has(form[action="/login"]) button[type="submit"], body:has(form[action="/registro"]) button[type="submit"] {
+body:has(form[action*="controller=auth"]) button[type="submit"] {
     width: 100%;
     margin-top: 6px;
 }
 
-body:has(form[action="/login"]) form a, body:has(form[action="/registro"]) form a {
+body:has(form[action*="controller=auth"]) form a {
     display: block;
     text-align: center;
     margin-top: 12px;
@@ -330,6 +317,6 @@ body:has(form[action="/login"]) form a, body:has(form[action="/registro"]) form 
     form { padding: 20px 14px; min-width: unset; }
     table { font-size: 0.82rem; }
     th, td { padding: 8px; }
-    h1 { font-size: 1.3rem !important; }
+    h1 { font-size: 1.3rem; }
     header { flex-wrap: wrap; gap: 8px; padding: 10px 14px !important; }
 }

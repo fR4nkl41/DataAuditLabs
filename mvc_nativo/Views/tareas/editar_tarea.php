@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea - DataAuditLabs</title>
+<<<<<<< HEAD
 </head>
 <body>
 
+=======
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles.css?v=<?php echo time(); ?>">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+</head>
+<body>
+    <header style="background-color: #f4f4f4; padding: 10px; margin-bottom: 20px;">
+    <span>Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['nombre']); ?></strong></span>
+    | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
+    | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
+</header>
+>>>>>>> mergeprueba
     <h1>Editar Tarea #<?php echo $tareaActual['id_tarea']; ?></h1>
 
     <form action="index.php?controller=tarea&action=actualizar" method="POST">
@@ -17,6 +30,20 @@
             <input type="text" id="titulo" name="titulo" required 
                    value="<?php echo htmlspecialchars($tareaActual['titulo']); ?>">
         </p>
+<<<<<<< HEAD
+=======
+        <p>
+            <label for="id_proyecto">Proyecto:</label><br>
+            <select id="id_proyecto" name="id_proyecto" required>
+                <?php foreach ($proyectos as $p): ?>
+                    <option value="<?php echo $p['id_proyecto']; ?>" 
+                        <?php echo ($tareaActual['id_proyecto'] == $p['id_proyecto']) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($p['nombre']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </p>
+>>>>>>> mergeprueba
 
         <p>
             <label for="descripcion">Descripción de la tarea:</label><br>
@@ -29,6 +56,29 @@
             <input type="date" id="fecha_limite" name="fecha_limite" required 
                    value="<?php echo $tareaActual['fecha_limite']; ?>">
         </p>
+<<<<<<< HEAD
+=======
+        <p>
+            <label for="estado">Estado de la Tarea:</label><br>
+            <select id="estado" name="estado" required>
+                <option value="Pendiente" <?php echo ($tareaActual['estado'] == 'Pendiente') ? 'selected' : ''; ?>>Pendiente</option>
+                <option value="En Progreso" <?php echo ($tareaActual['estado'] == 'En Progreso') ? 'selected' : ''; ?>>En Progreso</option>
+                <option value="Revisión" <?php echo ($tareaActual['estado'] == 'Revisión') ? 'selected' : ''; ?>>Revisión</option>
+                <option value="Testing" <?php echo ($tareaActual['estado'] == 'Testing') ? 'selected' : ''; ?>>Testing</option>
+                <option value="Completada" <?php echo ($tareaActual['estado'] == 'Completada') ? 'selected' : ''; ?>>Completada</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="prioridad">Prioridad:</label><br>
+            <select id="prioridad" name="prioridad" required>
+                <option value="Baja" <?php echo ($tareaActual['prioridad'] == 'Baja') ? 'selected' : ''; ?>>Baja</option>
+                <option value="Media" <?php echo ($tareaActual['prioridad'] == 'Media') ? 'selected' : ''; ?>>Media</option>
+                <option value="Alta" <?php echo ($tareaActual['prioridad'] == 'Alta') ? 'selected' : ''; ?>>Alta</option>
+                <option value="Urgente" <?php echo ($tareaActual['prioridad'] == 'Urgente') ? 'selected' : ''; ?>>Urgente</option>
+            </select>
+        </p>
+>>>>>>> mergeprueba
 
         <p>
             <button type="submit">Actualizar Tarea</button>
