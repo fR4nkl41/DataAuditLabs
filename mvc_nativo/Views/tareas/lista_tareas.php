@@ -10,6 +10,8 @@
     | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
     | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
 </header>
+
+<a href="index.php?controller=proyecto&action=index">Ver Proyectos</a> 
     <h1>Gestión de Tareas</h1>
 
     <!-- 1. Mostrar mensajes de retroalimentación (Vienen de la redirección del Controlador) -->

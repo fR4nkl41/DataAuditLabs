@@ -25,9 +25,22 @@
             <input type="text" id="titulo" name="titulo" required placeholder="Ej. Revisar base de datos">
         </p>
 
-        <p>
-            <label for="id_proyecto">ID del Proyecto:</label><br>
-            <input type="number" id="id_proyecto" name="id_proyecto" required min="1">
+       <p>
+            <label for="id_proyecto">Asignar al Proyecto: *</label><br>
+            <select id="id_proyecto" name="id_proyecto" required>
+                <option value="">-- Selecciona un Proyecto --</option>
+                
+                <?php if (!empty($proyectos)): ?>
+                    <?php foreach ($proyectos as $p): ?>
+                        <option value="<?php echo $p['id_proyecto']; ?>">
+                            <?php echo htmlspecialchars($p['nombre']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">No hay proyectos disponibles</option>
+                <?php endif; ?>
+                
+            </select>
         </p>
 
         <p>

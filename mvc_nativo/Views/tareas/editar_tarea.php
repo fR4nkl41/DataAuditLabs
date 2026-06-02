@@ -21,6 +21,17 @@
             <input type="text" id="titulo" name="titulo" required 
                    value="<?php echo htmlspecialchars($tareaActual['titulo']); ?>">
         </p>
+        <p>
+            <label for="id_proyecto">Proyecto:</label><br>
+            <select id="id_proyecto" name="id_proyecto" required>
+                <?php foreach ($proyectos as $p): ?>
+                    <option value="<?php echo $p['id_proyecto']; ?>" 
+                        <?php echo ($tareaActual['id_proyecto'] == $p['id_proyecto']) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($p['nombre']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </p>
 
         <p>
             <label for="descripcion">Descripción de la tarea:</label><br>

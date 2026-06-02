@@ -4,6 +4,7 @@
 // Requerir dependencias
 require_once 'config/config.php';
 require_once 'Models/TareaModel.php';
+require_once 'Models/ProyectoModel.php';
 
 
 
@@ -11,6 +12,7 @@ class TareaController {
     
     private $db;
     private $tareaModel;
+    private $proyectoModel;
 
     // 1. El Constructor inicializa la base de datos y el modelo
     public function __construct() {
@@ -25,6 +27,7 @@ class TareaController {
         $database = new Database();
         $this->db = $database->getConnection();
         $this->tareaModel = new Tarea($this->db);
+        $this->proyectoModel = new Proyecto($this->db);
     }
 
     // 2. Acción para listar las tareas (Página principal del módulo)
@@ -38,6 +41,9 @@ class TareaController {
 
     public function create() {
         // Simplemente carga la vista del formulario
+        $proyectoModel = new Proyecto($this->db);
+        $stmt = $proyectoModel->leerTodos();
+        $proyectos = $stmt->fetchAll();
         require_once 'Views/tareas/crear_tarea.php';
     }
 
@@ -51,6 +57,9 @@ class TareaController {
             
             // Usamos la nueva función del modelo
             $tareaActual = $this->tareaModel->obtenerPorId($id_tarea);
+            $proyectoModel = new Proyecto($this->db);
+            $stmt = $proyectoModel->leerTodos();
+            $proyectos = $stmt->fetchAll();
             
             // Si la consulta devolvió datos, cargamos la vista
             if ($tareaActual) {
