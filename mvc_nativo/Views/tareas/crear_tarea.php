@@ -5,7 +5,11 @@
     <title>Crear Nueva Tarea - DataAuditLabs</title>
 </head>
 <body>
-
+    <header style="background-color: #f4f4f4; padding: 10px; margin-bottom: 20px;">
+    <span>Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['nombre']); ?></strong></span>
+    | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
+    | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
+</header>
     <h1>Crear Nueva Tarea</h1>
 
     <?php if (isset($error)): ?>

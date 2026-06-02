@@ -5,7 +5,11 @@
     <title>Lista de Tareas - DataAuditLabs</title>
 </head>
 <body>
-
+    <header style="background-color: #f4f4f4; padding: 10px; margin-bottom: 20px;">
+    <span>Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['nombre']); ?></strong></span>
+    | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
+    | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
+</header>
     <h1>Gestión de Tareas</h1>
 
     <!-- 1. Mostrar mensajes de retroalimentación (Vienen de la redirección del Controlador) -->

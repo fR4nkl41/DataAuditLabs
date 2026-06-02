@@ -5,6 +5,8 @@
 require_once 'config/config.php';
 require_once 'Models/TareaModel.php';
 
+
+
 class TareaController {
     
     private $db;
@@ -12,6 +14,14 @@ class TareaController {
 
     // 1. El Constructor inicializa la base de datos y el modelo
     public function __construct() {
+        
+
+    if (session_status() == PHP_SESSION_NONE) { session_start(); }
+    if (!isset($_SESSION['id_usuario'])) {
+    // Si no hay sesión, lo pateamos de vuelta al login
+    header("Location: index.php?controller=auth&action=index");
+    exit();
+    }
         $database = new Database();
         $this->db = $database->getConnection();
         $this->tareaModel = new Tarea($this->db);
@@ -19,11 +29,11 @@ class TareaController {
 
     // 2. Acción para listar las tareas (Página principal del módulo)
     public function index() {
-
-        $stmt = $this->tareaModel->leerTodos();
-        $tareas = $stmt->fetchAll();
-
-        require_once 'Views/tareas/lista_tareas.php';
+    $nombreUsuario = $_SESSION['nombre'];
+    $id_usuario = $_SESSION['id_usuario'];
+    $stmt = $this->tareaModel->obtenerTareasPorUsuario($id_usuario);
+    $tareas = $stmt->fetchAll();
+    require_once 'Views/tareas/lista_tareas.php';
     }
 
     public function create() {
@@ -66,9 +76,9 @@ class TareaController {
             $descripcion = $_POST['descripcion'];
             $fecha_limite = $_POST['fecha_limite'];
          
-            // CORRECCIÓN: Ejecutar el modelo DENTRO del POST
+            
             if ($this->tareaModel->editarTarea($id_tarea, $titulo, $descripcion, $fecha_limite)) {
-                // CORRECCIÓN: Redirigir a la lista de tareas con un mensaje de éxito
+                
                 header('Location: index.php?controller=tarea&action=index&mensaje=actualizado');
                 exit();
             } else {
@@ -80,20 +90,19 @@ class TareaController {
    // Procesamiento de formulario
    public function store() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
-            // Recibir todos los datos
             $titulo = trim($_POST['titulo'] ?? '');
             $id_proyecto = trim($_POST['id_proyecto'] ?? '');
             $descripcion = trim($_POST['descripcion'] ?? '');
             $fecha_limite = trim($_POST['fecha_limite'] ?? '');
             
             if (!empty($titulo) && !empty($id_proyecto)) {
-                
-                // Cargar TODOS los datos en el modelo
                 $this->tareaModel->setTitulo($titulo);
                 $this->tareaModel->setProyecto($id_proyecto);
                 $this->tareaModel->setDescripcion($descripcion);
                 $this->tareaModel->setFechaLimite($fecha_limite);
+                
+               
+                $this->tareaModel->setUsuarioAsignado($_SESSION['id_usuario']);
                 
                 if ($this->tareaModel->crear()) {
                     header("Location: index.php?controller=tarea&action=index&mensaje=creado");

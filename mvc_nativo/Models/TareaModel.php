@@ -22,16 +22,17 @@ class Tarea {
     public function setProyecto($id_proyecto) { $this->id_proyecto = $id_proyecto; }
     public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
     public function setFechaLimite($fecha_limite) { $this->fecha_limite = $fecha_limite; }
+    public function setUsuarioAsignado($id_usuario) { $this->id_usuario_asignado = $id_usuario; }
 
     // 3. Métodos CRUD (Ejemplo: Crear una tarea)
     public function crear() {
-        $query = "INSERT INTO tareas (id_proyecto, titulo,estado,descripcion,fecha_limite) 
-                  VALUES (:id_proyecto, :titulo, 'Pendiente',:descripcion,:fecha_limite)";
-                  
+        $query = "INSERT INTO tareas (id_proyecto, id_usuario_asignado, titulo, descripcion, estado, prioridad, fecha_limite) VALUES (:id_proyecto, :id_usuario_asignado, :titulo, :descripcion, 'Pendiente', 'Media', :fecha_limite)";
+
         $stmt = $this->conn->prepare($query);
         
         // Limpiar datos y enlazar parámetros (Seguridad contra inyección SQL)
         $stmt->bindParam(':id_proyecto', $this->id_proyecto);
+        $stmt->bindParam(':id_usuario_asignado', $this->id_usuario_asignado);
         $stmt->bindParam(':titulo', $this->titulo);
         $stmt->bindParam(':descripcion', $this->descripcion);
         $stmt->bindParam(':fecha_limite', $this->fecha_limite);
@@ -97,7 +98,7 @@ class Tarea {
 
     //Funcion para a futuro cuando manejemos secciones de usuario
     public function obtenerTareasPorUsuario($id_usuario) {
-        $query = "SELECT t.titulo, t.estado, p.nombre as proyecto 
+        $query = "SELECT t.*, p.nombre as proyecto 
                   FROM tareas t
                   INNER JOIN proyectos p ON t.id_proyecto = p.id_proyecto
                   WHERE t.id_usuario_asignado = :id_usuario";
