@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Proyecto - DataAuditLabs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])); ?>/public/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
 

@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Proyectos - DataAuditLabs</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])); ?>/public/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
 
@@ -21,7 +19,7 @@
 
     <p>
         <a href="index.php?controller=proyecto&action=create">
-            <button>+ Crear Nuevo Proyecto</button>
+            + Crear Nuevo Proyecto
         </a>
         <a href="index.php?controller=tarea&action=index" style="margin-left: 10px;">
             Ir a mis Tareas
@@ -38,6 +36,7 @@
                 <th>Estado</th>
                 <th>Fecha de Inicio</th>
                 <th>Fecha Fin Estimada</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>

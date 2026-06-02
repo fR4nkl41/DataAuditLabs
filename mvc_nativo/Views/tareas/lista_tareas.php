@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Tareas - DataAuditLabs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])); ?>/public/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
     <header style="background-color: #f4f4f4; padding: 10px; margin-bottom: 20px;">
@@ -10,8 +13,7 @@
     | <span>Rol: <i><?php echo htmlspecialchars($_SESSION['rol']); ?></i></span>
     | <a href="index.php?controller=auth&action=logout">Cerrar Sesión</a>
 </header>
-
-<a href="index.php?controller=proyecto&action=index">Ver Proyectos</a> 
+ 
     <h1>Gestión de Tareas</h1>
 
     <!-- 1. Mostrar mensajes de retroalimentación (Vienen de la redirección del Controlador) -->
@@ -29,6 +31,7 @@
     <!-- Nota cómo la URL apunta al index, especificando el controlador y la acción -->
     <p>
         <a href="index.php?controller=tarea&action=create">Crear Nueva Tarea</a>
+        <a href="index.php?controller=proyecto&action=index">Ver Proyectos</a>
     </p>
 
     <!-- 3. Estructura de la Tabla de Datos -->
