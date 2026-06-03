@@ -79,7 +79,7 @@ iniciar proyecto
 ```
 ## MVC laravel
 
-> Entrar al directorio
+ Entrar al directorio
 ```
 cd laravel_tareas
 ```
